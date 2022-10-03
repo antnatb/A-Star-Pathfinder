@@ -1,0 +1,4 @@
+C:/Users/anton/Desktop/Pathfinder/cmake-build-debug/CMakeFiles/core.dir
+C:/Users/anton/Desktop/Pathfinder/cmake-build-debug/CMakeFiles/Pathfinder.dir
+C:/Users/anton/Desktop/Pathfinder/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/anton/Desktop/Pathfinder/cmake-build-debug/CMakeFiles/rebuild_cache.dir
