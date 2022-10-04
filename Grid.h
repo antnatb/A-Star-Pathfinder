@@ -10,6 +10,7 @@
 #include <vector>
 #include <list>
 #include "SFML/Graphics.hpp"
+#include <cmath>
 
 
 using namespace std;
@@ -44,9 +45,9 @@ private:
 
     int cellSide;
 
-    Cell* start;
-    Cell* target;
-    Cell* current;
+    Cell* start = nullptr;
+    Cell* target = nullptr;
+    Cell* current = nullptr;
 
     vector<vector<Cell>> cells;
 
@@ -54,6 +55,7 @@ private:
     list<Cell*> evaluatedCells;
 
     bool pathFound = false;
+    bool diagonalMovement = false;
 };
 
 

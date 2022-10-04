@@ -20,16 +20,15 @@ Grid::Grid(int x, int y):width(x), height(y) {
 Cell *Grid::findFreeCell() {
     srand(time(0));
     bool found = false;
+    Cell *cell = nullptr;
     while (!found) {
         int x = rand() % width;
         int y = rand() % height;
-        Cell *cell = &cells[x][y];
-        if (!cell->isStart() && !cell->isObstacle() && !cell->isTarget()){
+        cell = &cells[x][y];
+        if (!cell->isStart() && !cell->isObstacle() && !cell->isTarget())
             found = true;
-            return cell;
-        }
     }
-    return nullptr;
+    return cell;
 }
 
 void Grid::setStart() {
@@ -67,10 +66,8 @@ void Grid::findPath() {
             if (neighbor->isObstacle() ||
                 std::find(evaluatedCells.begin(), evaluatedCells.end(), neighbor) != evaluatedCells.end())
                 continue;
-            if (current->getGCost() + abs(current->getX() - neighbor->getX()) +
-                abs(current->getY() - neighbor->getY()) < neighbor->getGCost()) {
-                neighbor->setGCost(current->getGCost() + abs(current->getX() - neighbor->getX()) +
-                                   abs(current->getY() - neighbor->getY()));
+            if (current->getGCost() + sqrtf(pow(current->getX() - neighbor->getX(), 2) + pow(current->getY() - neighbor->getY(), 2)) < neighbor->getGCost()) {
+                neighbor->setGCost(current->getGCost() + sqrtf(pow(current->getX() - neighbor->getX(), 2) + pow(current->getY() - neighbor->getY(), 2)));
                 neighbor->computeFCost();
                 neighbor->setParent(*current);
             }
@@ -100,33 +97,55 @@ void Grid::addNeighbors(Cell &cell) {
     int x = cell.getX() / cellSide;
     int y = cell.getY() / cellSide;
 
+    //top
+    if (y + 1 < height)
+        if (!cells[x][y + 1].isStart() && !cells[x][y + 1].isObstacle()) {
+            cell.addNeighbor(cells[x][y + 1]);
+        }
+
     //right
-    if (x+1 < width)
-        if (!cells[x+1][y].isStart() && !cells[x+1][y].isObstacle()){
-            cell.addNeighbor(cells[x+1][y]);
-            //cells[x+1][y].setParent(cell);
+    if (x + 1 < width)
+        if (!cells[x + 1][y].isStart() && !cells[x + 1][y].isObstacle()) {
+            cell.addNeighbor(cells[x + 1][y]);
+        }
+
+    //bottom
+    if (y - 1 >= 0)
+        if (!cells[x][y - 1].isStart() && !cells[x][y - 1].isObstacle()) {
+            cell.addNeighbor(cells[x][y - 1]);
         }
 
     //left
-    if (x-1 >= 0)
-        if (!cells[x-1][y].isStart() && !cells[x-1][y].isObstacle()){
-            cell.addNeighbor(cells[x-1][y]);
-            //cells[x-1][y].setParent(cell);
+    if (x - 1 >= 0)
+        if (!cells[x - 1][y].isStart() && !cells[x - 1][y].isObstacle()) {
+            cell.addNeighbor(cells[x - 1][y]);
         }
 
-    //up
-    if (y+1 < height)
-        if (!cells[x][y+1].isStart() && !cells[x][y+1].isObstacle()){
-            cell.addNeighbor(cells[x][y+1]);
-            //cells[x][y+1].setParent(cell);
-        }
+    if (diagonalMovement) {
+        //top right
+        if (y + 1 < height && x + 1 < width)
+            if (!cells[x + 1][y + 1].isStart() && !cells[x + 1][y + 1].isObstacle()) {
+                cell.addNeighbor(cells[x + 1][y + 1]);
+            }
 
-    //down
-    if (y-1 >= 0 )
-        if (!cells[x][y-1].isStart() && !cells[x][y-1].isObstacle()){
-            cell.addNeighbor(cells[x][y-1]);
-            //cells[x][y-1].setParent(cell);
-        }
+        //bottom right
+        if (y - 1 >= 0 && x + 1 < width)
+            if (!cells[x + 1][y - 1].isStart() && !cells[x + 1][y - 1].isObstacle()) {
+                cell.addNeighbor(cells[x + 1][y - 1]);
+            }
+
+        //bottom left
+        if (y - 1 >= 0 && x - 1 >= 0)
+            if (!cells[x - 1][y - 1].isStart() && !cells[x - 1][y - 1].isObstacle()) {
+                cell.addNeighbor(cells[x - 1][y - 1]);
+            }
+
+        //top left
+        if (x - 1 >= 0 && y + 1 < height)
+            if (!cells[x - 1][y + 1].isStart() && !cells[x - 1][y + 1].isObstacle()) {
+                cell.addNeighbor(cells[x - 1][y + 1]);
+            }
+    }
 }
 
 void Grid::reset() {

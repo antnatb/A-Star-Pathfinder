@@ -39,8 +39,8 @@ void Cell::draw(sf::RenderWindow &window) {
 }
 
 void Cell::computeCosts(Cell &start, Cell &target) {
-    GCost = abs(x - start.x) + abs(y - start.y);
-    HCost = abs(x - target.x) + abs(y - target.y);
+    GCost = sqrtf(pow(x - start.x, 2) + pow(y- start.y, 2));
+    HCost = sqrtf(pow(x - target.x, 2) + pow(y- target.y, 2));
     FCost = HCost + GCost;
 }
 

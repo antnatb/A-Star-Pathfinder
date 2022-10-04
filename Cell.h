@@ -62,18 +62,18 @@ public:
         return obstacle;
     }
 
-    int getFCost () const {
+    float getFCost () const {
         return FCost;
     }
 
-    int getHCost() const {
+    float getHCost() const {
         return HCost;
     }
-    void setGCost(int value) {
+    void setGCost(float value) {
         GCost = value;
     }
 
-    int getGCost() const {
+    float getGCost() const {
         return GCost;
     }
 
@@ -99,9 +99,9 @@ private:
     int x, y;
     int side;
 
-    int GCost = 0;
-    int HCost = 0;
-    int FCost = 0;
+    float GCost = 0;
+    float HCost = 0;
+    float FCost = 0;
 
     list<Cell*> neighbors = {};
 
