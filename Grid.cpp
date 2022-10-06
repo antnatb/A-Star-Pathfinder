@@ -60,30 +60,14 @@ void Grid::findPath() {
     bool path = true;
     while (current != target && path) {
         current = findLowestCostCell();
-        if (current == nullptr)
-            path = false;
         availableCells.remove(current);
         current->setAvailable(false);
         evaluatedCells.push_back(current);
         current->evaluate();
         addNeighbors(*current);
-        for (auto neighbor: current->getNeighbors()) {
-            if (neighbor->isObstacle() || neighbor->isEvaluated())
-                continue;
-            float newGCost = current->getGCost() + sqrtf(pow(current->getX() - neighbor->getX(), 2) +
-                                                         pow(current->getY() - neighbor->getY(), 2));
-            if (newGCost < neighbor->getGCost() || !neighbor->isAvailable()) {
-                neighbor->setGCost(newGCost);
-                neighbor->computeHCost(*target);
-                neighbor->computeFCost();
-                neighbor->setParent(*current);
-                if (!neighbor->isAvailable()) {
-                    availableCells.push_back(neighbor);
-                    neighbor->setAvailable(true);
-                }
-            }
-
-        }
+        evaluateNeighbors(*current);
+        if (availableCells.empty())
+            path = false;
     }
     if (path)
         traceBackPath();
@@ -171,6 +155,26 @@ void Grid::traceBackPath() {
     while (current != start) {
         current->visit();
         current = current->getParent();
+    }
+}
+
+void Grid::evaluateNeighbors(Cell &cell) {
+    for (auto neighbor: cell.getNeighbors()) {
+        if (neighbor->isObstacle() || neighbor->isEvaluated())
+            continue;
+        float newGCost = cell.getGCost() + sqrtf(pow(cell.getX() - neighbor->getX(), 2) +
+                                                     pow(cell.getY() - neighbor->getY(), 2));
+        if (newGCost < neighbor->getGCost() || !neighbor->isAvailable()) {
+            neighbor->setGCost(newGCost);
+            neighbor->computeHCost(*target);
+            neighbor->computeFCost();
+            neighbor->setParent(cell);
+            if (!neighbor->isAvailable()) {
+                availableCells.push_back(neighbor);
+                neighbor->setAvailable(true);
+            }
+        }
+
     }
 }
 

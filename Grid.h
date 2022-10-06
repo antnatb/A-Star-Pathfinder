@@ -37,6 +37,8 @@ public:
 
     Cell* findLowestCostCell();
 
+    void evaluateNeighbors(Cell &cell);
+
     void setStart();
     void setTarget();
 
