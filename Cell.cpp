@@ -3,13 +3,16 @@
 //
 
 #include "Cell.h"
-#include <cmath>
+
 
 Cell::Cell(int x, int y, int side): x(x), y(y), side(side) {
     shape.setSize({float(side), float(side)});
     shape.setPosition(float(x), float(y));
     shape.setOutlineThickness(2);
     shape.setOutlineColor(sf::Color::Black);
+    GCost = 999;
+    HCost = 999;
+    FCost = 999;
 }
 
 void Cell::update(sf::RenderWindow &window) {
@@ -38,23 +41,18 @@ void Cell::draw(sf::RenderWindow &window) {
 
 }
 
-void Cell::computeCosts(Cell &start, Cell &target) {
-    GCost = sqrtf(pow(x - start.x, 2) + pow(y- start.y, 2));
-    HCost = sqrtf(pow(x - target.x, 2) + pow(y- target.y, 2));
-    FCost = HCost + GCost;
-}
-
 void Cell::addNeighbor(Cell &cell) {
     neighbors.push_back(&cell);
 }
 
 void Cell::reset() {
+    available = false;
     evaluated = false;
     visited = false;
     parent = nullptr;
-    GCost = 0;
-    HCost = 0;
-    FCost = 0;
+    GCost = 999;
+    HCost = 999;
+    FCost = 999;
 }
 
 

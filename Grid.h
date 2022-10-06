@@ -54,7 +54,6 @@ private:
     list<Cell*> availableCells;
     list<Cell*> evaluatedCells;
 
-    bool pathFound = false;
     bool diagonalMovement = false;
 };
 

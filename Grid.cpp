@@ -5,10 +5,10 @@
 #include "Grid.h"
 
 Grid::Grid(int x, int y):width(x), height(y) {
-    cellSide = int(sf::VideoMode::getDesktopMode().width) / (x * 2);
+    cellSide = int(sf::VideoMode::getDesktopMode().width) / (x);
     for (int i = 0; i < x; i++) {
         cells.emplace_back();
-        for (int j = 0; j < y; j++){
+        for (int j = 0; j < y ; j++){
             Cell cell(i * cellSide, j * cellSide, cellSide);
             cells[i].push_back(cell);
         }
@@ -56,39 +56,48 @@ void Grid::draw(sf::RenderWindow &window) {
 void Grid::findPath() {
     reset();
     availableCells.push_back(start);
-    while (current != target) {
+    start->setAvailable(true);
+    bool path = true;
+    while (current != target && path) {
         current = findLowestCostCell();
+        if (current == nullptr)
+            path = false;
         availableCells.remove(current);
+        current->setAvailable(false);
         evaluatedCells.push_back(current);
         current->evaluate();
         addNeighbors(*current);
         for (auto neighbor: current->getNeighbors()) {
-            if (neighbor->isObstacle() ||
-                std::find(evaluatedCells.begin(), evaluatedCells.end(), neighbor) != evaluatedCells.end())
+            if (neighbor->isObstacle() || neighbor->isEvaluated())
                 continue;
-            if (current->getGCost() + sqrtf(pow(current->getX() - neighbor->getX(), 2) + pow(current->getY() - neighbor->getY(), 2)) < neighbor->getGCost()) {
-                neighbor->setGCost(current->getGCost() + sqrtf(pow(current->getX() - neighbor->getX(), 2) + pow(current->getY() - neighbor->getY(), 2)));
+            float newGCost = current->getGCost() + sqrtf(pow(current->getX() - neighbor->getX(), 2) +
+                                                         pow(current->getY() - neighbor->getY(), 2));
+            if (newGCost < neighbor->getGCost() || !neighbor->isAvailable()) {
+                neighbor->setGCost(newGCost);
+                neighbor->computeHCost(*target);
                 neighbor->computeFCost();
                 neighbor->setParent(*current);
+                if (!neighbor->isAvailable()) {
+                    availableCells.push_back(neighbor);
+                    neighbor->setAvailable(true);
+                }
             }
-            if (std::find(availableCells.begin(), availableCells.end(), neighbor) == availableCells.end()){
-                neighbor->computeCosts(*start, *target);
-                neighbor->setParent(*current);
-                availableCells.push_back(neighbor);
-            }
+
         }
     }
-    traceBackPath();
+    if (path)
+        traceBackPath();
 }
 
+
 Cell *Grid::findLowestCostCell() {
-    Cell *lowestCostCell = availableCells.back();
+    float lowestCost = 9999.9;
+    Cell *lowestCostCell = nullptr;
     for (auto &cell: availableCells) {
-        if (!cell->getFCost())
-            cell->computeCosts(*start, *target);
-        if (cell->getFCost() < lowestCostCell->getFCost() ||
-            (cell->getFCost() == lowestCostCell->getFCost() && cell->getHCost() < lowestCostCell->getHCost()))
+        if (cell->getFCost() < lowestCost || (cell->getFCost() == lowestCost && cell->getHCost() < lowestCostCell->getHCost())) {
             lowestCostCell = cell;
+            lowestCost = cell->getFCost();
+        }
     }
     return lowestCostCell;
 }
@@ -124,25 +133,25 @@ void Grid::addNeighbors(Cell &cell) {
     if (diagonalMovement) {
         //top right
         if (y + 1 < height && x + 1 < width)
-            if (!cells[x + 1][y + 1].isStart() && !cells[x + 1][y + 1].isObstacle()) {
+            if (!cells[x + 1][y + 1].isStart() && !cells[x + 1][y + 1].isObstacle() && !(cells[x][y+1].isObstacle() && cells[x+1][y].isObstacle())) {
                 cell.addNeighbor(cells[x + 1][y + 1]);
             }
 
         //bottom right
         if (y - 1 >= 0 && x + 1 < width)
-            if (!cells[x + 1][y - 1].isStart() && !cells[x + 1][y - 1].isObstacle()) {
+            if (!cells[x + 1][y - 1].isStart() && !cells[x + 1][y - 1].isObstacle() && !(cells[x][y-1].isObstacle() && cells[x+1][y].isObstacle())) {
                 cell.addNeighbor(cells[x + 1][y - 1]);
             }
 
         //bottom left
         if (y - 1 >= 0 && x - 1 >= 0)
-            if (!cells[x - 1][y - 1].isStart() && !cells[x - 1][y - 1].isObstacle()) {
+            if (!cells[x - 1][y - 1].isStart() && !cells[x - 1][y - 1].isObstacle() && !(cells[x][y-1].isObstacle() && cells[x-1][y].isObstacle())) {
                 cell.addNeighbor(cells[x - 1][y - 1]);
             }
 
         //top left
         if (x - 1 >= 0 && y + 1 < height)
-            if (!cells[x - 1][y + 1].isStart() && !cells[x - 1][y + 1].isObstacle()) {
+            if (!cells[x - 1][y + 1].isStart() && !cells[x - 1][y + 1].isObstacle() && !(cells[x][y-1].isObstacle() && cells[x-1][y].isObstacle())) {
                 cell.addNeighbor(cells[x - 1][y + 1]);
             }
     }

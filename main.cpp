@@ -6,7 +6,7 @@
 int main() {
     Grid grid(32, 18);
 
-    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Pathfinder");
+    sf::RenderWindow window(sf::VideoMode(), "Pathfinder", sf::Style::Fullscreen);
 
     sf::Event event{};
 
@@ -14,6 +14,9 @@ int main() {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if (event.type == sf::Event::KeyPressed)
+                if(event.key.code == sf::Keyboard::Escape)
+                    window.close();
         }
 
         // Clearing the old frame and preparing for drawing the new one

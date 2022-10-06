@@ -681,6 +681,8 @@ SFML/Graphics.hpp
 C:/Users/anton/Desktop/Pathfinder/SFML/Graphics.hpp
 list
 -
+cmath
+-
 
 C:/Users/anton/Desktop/Pathfinder/Grid.cpp
 Grid.h
@@ -697,12 +699,4 @@ SFML/Graphics.hpp
 C:/Users/anton/Desktop/Pathfinder/SFML/Graphics.hpp
 cmath
 -
-
-C:/Users/anton/Desktop/Pathfinder/main.cpp
-iostream
--
-SFML/Graphics.hpp
-C:/Users/anton/Desktop/Pathfinder/SFML/Graphics.hpp
-Grid.h
-C:/Users/anton/Desktop/Pathfinder/Grid.h
 

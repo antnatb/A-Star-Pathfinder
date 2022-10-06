@@ -7,6 +7,7 @@
 
 #include "SFML/Graphics.hpp"
 #include <list>
+#include <cmath>
 
 using namespace std;
 
@@ -20,7 +21,9 @@ public:
 
     void draw(sf::RenderWindow &window);
 
-    void computeCosts(Cell &start, Cell &target);
+    void computeHCost(Cell &target) {
+        HCost = sqrt(pow(x - target.x, 2) + pow(y- target.y, 2));
+    }
 
     void computeFCost(){
         FCost = GCost + HCost;
@@ -89,6 +92,18 @@ public:
         evaluated = true;
     }
 
+    bool isEvaluated() {
+        return evaluated;
+    };
+
+    void setAvailable(bool av){
+        available = av;
+    }
+
+    bool isAvailable() const {
+        return available;
+    }
+
     void visit() {
         visited = true;
     }
@@ -110,6 +125,7 @@ private:
     bool start = false;
     bool target = false;
     bool obstacle = false;
+    bool available = false;
     bool evaluated = false;
     bool visited = false;
 
