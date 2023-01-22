@@ -18,7 +18,9 @@ using namespace std;
 
 class Grid {
 public:
+
     explicit Grid(int x, int y);
+    Grid();
     ~Grid() = default;
 
     void update(sf::RenderWindow &window);
@@ -43,19 +45,27 @@ public:
     void setTarget();
 
 private:
+    //dimensions of the grid
     int width, height;
 
+    //length of the side of each cell
     int cellSide;
 
+    //pointers to key cells
     Cell* start = nullptr;
     Cell* target = nullptr;
     Cell* current = nullptr;
 
+    //our main data structure, a sort of matrix of cells
     vector<vector<Cell>> cells;
 
+    //list of the "reachable" cells, aka cells which can be visited by the pathfinder at a given time
     list<Cell*> availableCells;
+
+    //list of the evaluated cells, aka cells which have been visited by the pathfinder at a given time
     list<Cell*> evaluatedCells;
 
+    //bool variable to enable diagonal movement
     bool diagonalMovement = false;
 };
 

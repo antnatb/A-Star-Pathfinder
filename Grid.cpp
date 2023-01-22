@@ -4,19 +4,28 @@
 
 #include "Grid.h"
 
+//Ctor; we decide the dimensions of the grid
 Grid::Grid(int x, int y):width(x), height(y) {
-    cellSide = int(sf::VideoMode::getDesktopMode().width) / (x);
+    //compute the side of the cells based on the display's dimensions
+    cellSide = int(sf::VideoMode::getDesktopMode().width) / x;
     for (int i = 0; i < x; i++) {
         cells.emplace_back();
         for (int j = 0; j < y ; j++){
             Cell cell(i * cellSide, j * cellSide, cellSide);
+            int randomNumber = rand() % 10;
+            if (randomNumber < 3)
+                cell.makeObstacle();
             cells[i].push_back(cell);
         }
     }
+    //set two random cells as start and target
     setStart();
     setTarget();
 }
 
+Grid::Grid(): Grid(32,18) {}
+
+//function that returns a random free cell on the grid; we use it to set start and target
 Cell *Grid::findFreeCell() {
     srand(time(0));
     bool found = false;
@@ -54,16 +63,15 @@ void Grid::draw(sf::RenderWindow &window) {
 }
 
 void Grid::findPath() {
+    //reset the grid
     reset();
+    //we begin from the start cell
     availableCells.push_back(start);
     start->setAvailable(true);
     bool path = true;
+    //loop; we visit cells until we find the target, or until there's no cell available to visit
     while (current != target && path) {
         current = findLowestCostCell();
-        availableCells.remove(current);
-        current->setAvailable(false);
-        evaluatedCells.push_back(current);
-        current->evaluate();
         addNeighbors(*current);
         evaluateNeighbors(*current);
         if (availableCells.empty())
@@ -83,6 +91,10 @@ Cell *Grid::findLowestCostCell() {
             lowestCost = cell->getFCost();
         }
     }
+    availableCells.remove(lowestCostCell);
+    lowestCostCell->setAvailable(false);
+    evaluatedCells.push_back(lowestCostCell);
+    lowestCostCell->evaluate();
     return lowestCostCell;
 }
 
@@ -159,7 +171,7 @@ void Grid::traceBackPath() {
 }
 
 void Grid::evaluateNeighbors(Cell &cell) {
-    for (auto neighbor: cell.getNeighbors()) {
+    for (auto neighbor : cell.getNeighbors()) {
         if (neighbor->isObstacle() || neighbor->isEvaluated())
             continue;
         float newGCost = cell.getGCost() + sqrtf(pow(cell.getX() - neighbor->getX(), 2) +
@@ -177,6 +189,8 @@ void Grid::evaluateNeighbors(Cell &cell) {
 
     }
 }
+
+
 
 
 

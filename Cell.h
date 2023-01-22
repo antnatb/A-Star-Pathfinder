@@ -61,6 +61,10 @@ public:
         target = true;
     };
 
+    void makeObstacle() {
+        obstacle = true;
+    }
+
     bool isObstacle() const {
         return obstacle;
     }

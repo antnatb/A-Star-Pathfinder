@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/anton/Desktop/Pathfinder/Cell.cpp" "C:/Users/anton/Desktop/Pathfinder/cmake-build-debug/CMakeFiles/core.dir/Cell.cpp.obj"
-  "C:/Users/anton/Desktop/Pathfinder/Grid.cpp" "C:/Users/anton/Desktop/Pathfinder/cmake-build-debug/CMakeFiles/core.dir/Grid.cpp.obj"
+  "C:/Users/anton/Desktop/Progetti C++/Pathfinder/Cell.cpp" "C:/Users/anton/Desktop/Progetti C++/Pathfinder/cmake-build-debug/CMakeFiles/core.dir/Cell.cpp.obj"
+  "C:/Users/anton/Desktop/Progetti C++/Pathfinder/Grid.cpp" "C:/Users/anton/Desktop/Progetti C++/Pathfinder/cmake-build-debug/CMakeFiles/core.dir/Grid.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -20,7 +20,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../SFML/include"
+  "C:/Users/anton/Desktop/Progetti C++/Pathfinder/SFML/include"
   )
 
 # The set of dependency files which are needed:

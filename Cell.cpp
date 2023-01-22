@@ -8,7 +8,7 @@
 Cell::Cell(int x, int y, int side): x(x), y(y), side(side) {
     shape.setSize({float(side), float(side)});
     shape.setPosition(float(x), float(y));
-    shape.setOutlineThickness(1);
+    shape.setOutlineThickness(0);
     shape.setOutlineColor(sf::Color::Black);
     GCost = 999;
     HCost = 999;
