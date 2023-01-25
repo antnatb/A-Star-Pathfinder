@@ -20,6 +20,7 @@ FCost and repeats the process until it has found the target or there are no more
 Instructions:
 Once you click 'Run', a Grid with default dimensions will be created with a 30% chance that each cell is an obstacle (black). The start cell (blue) and target cell (red)
 are chosen randomly. The shortest path will be automatically visualized in dark yellow, whereas all the other cells which will have been evaluated will be shown in light
-yellow. You can add obstacles with left click and remove them with right click, the path will automatically updated.
+yellow. You can add obstacles with left click and remove them with right click, the path will automatically update
+.
 
 
