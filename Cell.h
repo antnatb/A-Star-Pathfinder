@@ -118,9 +118,9 @@ private:
     int x, y;
     int side;
 
-    float GCost = 0;
-    float HCost = 0;
-    float FCost = 0;
+    float GCost;
+    float HCost;
+    float FCost;
 
     list<Cell*> neighbors = {};
 
