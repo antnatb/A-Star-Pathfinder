@@ -4,7 +4,7 @@
 
 
 int main() {
-    Grid myGrid(80,45);
+    Grid myGrid(64,36);
 
     sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Pathfinder",sf::Style::Fullscreen);
 
@@ -27,6 +27,7 @@ int main() {
 
         // project update and draw
         myGrid.update(window);
+        myGrid.findPath();
         myGrid.draw(window);
 
 
