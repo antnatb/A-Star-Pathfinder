@@ -26,17 +26,17 @@ void Cell::update(sf::RenderWindow &window) {
 
 void Cell::draw(sf::RenderWindow &window) {
     if (obstacle)
-        shape.setFillColor(sf::Color{43, 48, 58});
+        shape.setFillColor(sf::Color{43, 48, 58}); // gunmetal
     else if (start)
-        shape.setFillColor(sf::Color{37, 78, 112});
+        shape.setFillColor(sf::Color{79, 157, 105}); // forest green crayola
     else if (target)
-        shape.setFillColor(sf::Color{195, 60, 84});
+        shape.setFillColor(sf::Color{213, 87, 59}); // cedar chest
     else if (visited)
-        shape.setFillColor(sf::Color{177, 177, 6});
+        shape.setFillColor(sf::Color{44, 82, 118}); // yale blue
     else if (evaluated)
-        shape.setFillColor(sf::Color{249, 249, 98});
+        shape.setFillColor(sf::Color{169, 211, 255}); // baby blue eyes
     else
-        shape.setFillColor(sf::Color{245, 235, 255});
+        shape.setFillColor(sf::Color{242, 244, 255}); // ghost white
     window.draw(shape);
 
 }
