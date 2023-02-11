@@ -13,7 +13,7 @@ Grid::Grid(int x, int y):width(x), height(y) {
         for (int j = 0; j < y ; j++){
             Cell cell(i * cellSide, j * cellSide, cellSide);
             int randomNumber = rand() % 10;
-            if (randomNumber < 3)
+            if (randomNumber < 4)
                 cell.makeObstacle();
             cells[i].push_back(cell);
         }
@@ -27,7 +27,6 @@ Grid::Grid(): Grid(32,18) {}
 
 //function that returns a random free cell on the grid; we use it to set start and target
 Cell *Grid::findFreeCell() {
-    srand(time(0));
     bool found = false;
     Cell *cell = nullptr;
     while (!found) {
@@ -68,7 +67,7 @@ void Grid::findPath() {
     //we begin from the start cell
     availableCells.push_back(start);
     start->setAvailable(true);
-    bool path = true;
+    path = true;
     //loop; we visit cells until we find the target, or until there's no cell available to visit
     while (current != target && path) {
         current = findLowestCostCell();
@@ -189,6 +188,11 @@ void Grid::evaluateNeighbors(Cell &cell) {
 
     }
 }
+
+bool Grid::isPath() const {
+    return path;
+}
+
 
 
 

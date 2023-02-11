@@ -24,9 +24,13 @@ public:
     ~Grid() = default;
 
     void update(sf::RenderWindow &window);
-
     void draw(sf::RenderWindow &window);
 
+    void findPath();
+    bool isPath() const;
+
+
+private:
     void reset();
 
     void traceBackPath();
@@ -35,16 +39,12 @@ public:
 
     Cell* findFreeCell();
 
-    void findPath();
-
     Cell* findLowestCostCell();
 
     void evaluateNeighbors(Cell &cell);
 
     void setStart();
     void setTarget();
-
-private:
     //dimensions of the grid
     int width, height;
 
@@ -64,6 +64,8 @@ private:
 
     //list of the evaluated cells, aka cells which have been visited by the pathfinder at a given time
     list<Cell*> evaluatedCells;
+
+    bool path;
 
     //bool variable to enable diagonal movement
     bool diagonalMovement = false;

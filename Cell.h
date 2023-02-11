@@ -15,6 +15,7 @@ using namespace std;
 class Cell {
 public:
     Cell(int x, int y, int side);
+    Cell();
     ~Cell() = default;
 
     void update(sf::RenderWindow &window);
@@ -33,7 +34,7 @@ public:
 
     void reset();
 
-    list<Cell*> getNeighbors(){
+    list<Cell*> getNeighbors() const {
         return neighbors;
     }
 
@@ -51,6 +52,7 @@ public:
 
     void makeStart() {
         start = true;
+        target = false;
     }
 
     bool isTarget() const {
@@ -58,6 +60,7 @@ public:
     }
 
     void makeTarget() {
+        start = false;
         target = true;
     };
 
@@ -96,7 +99,7 @@ public:
         evaluated = true;
     }
 
-    bool isEvaluated() {
+    bool isEvaluated() const {
         return evaluated;
     };
 

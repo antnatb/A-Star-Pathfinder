@@ -55,4 +55,6 @@ void Cell::reset() {
     FCost = 999;
 }
 
+Cell::Cell(): Cell(0, 0, 20) {}
+
 

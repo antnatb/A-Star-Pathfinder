@@ -4,7 +4,9 @@
 
 
 int main() {
-    Grid myGrid(64,36);
+    ::srand(::time(0));
+
+    Grid myGrid(48,27);
 
     sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Pathfinder",sf::Style::Fullscreen);
 

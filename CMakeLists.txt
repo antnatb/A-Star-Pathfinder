@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 project(Pathfinder)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 if (WIN32)
     set(BUILD_SHARED_LIBS OFF)
@@ -20,3 +20,6 @@ set(CMAKE_EXE_LINKER_FLAGS "-static")
 
 add_executable(Pathfinder main.cpp Grid.cpp Grid.h Cell.cpp Cell.h)
 target_link_libraries(Pathfinder PUBLIC core)
+
+add_subdirectory(test)
+
