@@ -27,6 +27,8 @@ public:
     void draw(sf::RenderWindow &window);
 
     void findPath();
+    void getSolution() const;
+
     bool isPath() const;
 
 
@@ -65,6 +67,10 @@ private:
     //list of the evaluated cells, aka cells which have been visited by the pathfinder at a given time
     list<Cell*> evaluatedCells;
 
+    //list of the cells that actually make the path
+    list<Cell*> visitedCells;
+
+    //boolean attribute that indicates whether there is a path or not
     bool path;
 
     //bool variable to enable diagonal movement

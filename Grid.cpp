@@ -2,6 +2,7 @@
 // Created by anton on 03/10/2022.
 //
 
+#include <iostream>
 #include "Grid.h"
 
 //Ctor; we decide the dimensions of the grid
@@ -165,6 +166,7 @@ void Grid::traceBackPath() {
     current = target->getParent();
     while (current != start) {
         current->visit();
+        visitedCells.push_back(current);
         current = current->getParent();
     }
 }
@@ -193,6 +195,20 @@ bool Grid::isPath() const {
     return path;
 }
 
+void Grid::getSolution() const {
+    if (!path)
+        std::cout << "There is no path available in this map." << std::endl;
+    else {
+        std::cout << "The cells that compose the path are:" << std::endl;
+        int i = 1;
+        for (auto cell: visitedCells) {
+            int x = cell->getX() / cellSide;
+            int y = cell->getY() / cellSide;
+            std::cout << "Cell #" << i << ": x=" << x << ", y=" << y << std::endl;
+            i++;
+        }
+    }
+}
 
 
 

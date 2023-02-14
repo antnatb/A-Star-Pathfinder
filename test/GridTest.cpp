@@ -10,6 +10,7 @@ TEST(Grid, NoPath) {
     Grid grid;
     grid.findPath();
     ASSERT_EQ(grid.isPath(), false);
+    grid.getSolution();
 }
 
 TEST(Grid, Path) {
@@ -17,5 +18,6 @@ TEST(Grid, Path) {
     Grid grid;
     grid.findPath();
     ASSERT_EQ(grid.isPath(), true);
+    grid.getSolution();
 }
 
