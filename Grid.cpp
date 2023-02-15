@@ -15,7 +15,7 @@ Grid::Grid(int x, int y):width(x), height(y) {
             Cell cell(i * cellSide, j * cellSide, cellSide);
             int randomNumber = rand() % 10;
             if (randomNumber < 4)
-                cell.makeObstacle();
+                cell.setObstacle(true);
             cells[i].push_back(cell);
         }
     }
@@ -48,12 +48,6 @@ void Grid::setStart() {
 void Grid::setTarget() {
     target = findFreeCell();
     target->makeTarget();
-}
-
-void Grid::update(sf::RenderWindow &window) {
-    for (auto &row : cells)
-        for (auto &cell : row)
-            cell.update(window);
 }
 
 void Grid::draw(sf::RenderWindow &window) {
@@ -195,19 +189,17 @@ bool Grid::isPath() const {
     return path;
 }
 
-void Grid::getSolution() const {
-    if (!path)
-        std::cout << "There is no path available in this map." << std::endl;
-    else {
-        std::cout << "The cells that compose the path are:" << std::endl;
-        int i = 1;
-        for (auto cell: visitedCells) {
-            int x = cell->getX() / cellSide;
-            int y = cell->getY() / cellSide;
-            std::cout << "Cell #" << i << ": x=" << x << ", y=" << y << std::endl;
-            i++;
-        }
-    }
+list<Cell*> Grid::getSolution() const {
+    return visitedCells;
+}
+
+
+int Grid::getWidth() const {
+    return width;
+}
+
+int Grid::getHeight() const {
+    return height;
 }
 
 

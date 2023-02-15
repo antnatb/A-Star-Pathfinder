@@ -1,12 +1,14 @@
 
 #include "SFML/Graphics.hpp"
-#include "Grid.h"
+#include "UserInteraction.h"
 
 
 int main() {
     ::srand(::time(0));
 
     Grid myGrid(48,27);
+
+    UserInteraction interaction(&myGrid);
 
     sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Pathfinder",sf::Style::Fullscreen);
 
@@ -28,7 +30,8 @@ int main() {
         window.clear(sf::Color::White);
 
         // project update and draw
-        myGrid.update(window);
+        //myGrid.update(window);
+        interaction.update(window);
         myGrid.findPath();
         myGrid.draw(window);
 

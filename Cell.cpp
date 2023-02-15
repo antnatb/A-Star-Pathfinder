@@ -15,14 +15,6 @@ Cell::Cell(int x, int y, int side): x(x), y(y), side(side) {
     FCost = 999;
 }
 
-void Cell::update(sf::RenderWindow &window) {
-    if (shape.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !isStart() && !isTarget())
-            obstacle = true;
-        else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-            obstacle = false;
-    }
-}
 
 void Cell::draw(sf::RenderWindow &window) {
     if (obstacle)

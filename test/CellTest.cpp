@@ -20,7 +20,7 @@ TEST(Cell, ObstacleColor) {
     sf::RenderWindow window;
     cell.draw(window);
     sf::Color color;
-    cell.makeObstacle();
+    cell.setObstacle(true);
     cell.draw(window);
     color = sf::Color{43, 48, 58}; //obstacle color
     ASSERT_EQ(cell.shape.getFillColor(),color);

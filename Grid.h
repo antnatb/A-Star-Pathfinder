@@ -23,14 +23,20 @@ public:
     Grid();
     ~Grid() = default;
 
-    void update(sf::RenderWindow &window);
     void draw(sf::RenderWindow &window);
 
     void findPath();
-    void getSolution() const;
+    list<Cell*> getSolution() const;
 
     bool isPath() const;
 
+    int getWidth() const;
+
+    int getHeight() const;
+
+    Cell* getCell(int x, int y){
+        return &cells[x][y];
+    }
 
 private:
     void reset();
@@ -68,7 +74,7 @@ private:
     list<Cell*> evaluatedCells;
 
     //list of the cells that actually make the path
-    list<Cell*> visitedCells;
+    list<Cell*> visitedCells = {};
 
     //boolean attribute that indicates whether there is a path or not
     bool path;

@@ -18,8 +18,6 @@ public:
     Cell();
     ~Cell() = default;
 
-    void update(sf::RenderWindow &window);
-
     void draw(sf::RenderWindow &window);
 
     void computeHCost(Cell &target) {
@@ -64,8 +62,8 @@ public:
         target = true;
     };
 
-    void makeObstacle() {
-        obstacle = true;
+    void setObstacle(bool b) {
+        obstacle = b;
     }
 
     bool isObstacle() const {
