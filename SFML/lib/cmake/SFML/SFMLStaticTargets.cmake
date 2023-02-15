@@ -51,7 +51,7 @@ if(_IMPORT_PREFIX STREQUAL "/")
 endif()
 
 # Create imported target sfml-system
-add_library(sfml-system STATIC IMPORTED)
+add_library(sfml-system STATIC IMPORTED ../../../../UserInteraction.cpp ../../../../UserInteraction.h)
 
 set_target_properties(sfml-system PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
@@ -60,7 +60,7 @@ set_target_properties(sfml-system PROPERTIES
 )
 
 # Create imported target sfml-main
-add_library(sfml-main STATIC IMPORTED)
+add_library(sfml-main STATIC IMPORTED ../../../../UserInteraction.cpp ../../../../UserInteraction.h)
 
 set_target_properties(sfml-main PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
@@ -68,7 +68,7 @@ set_target_properties(sfml-main PROPERTIES
 )
 
 # Create imported target sfml-window
-add_library(sfml-window STATIC IMPORTED)
+add_library(sfml-window STATIC IMPORTED ../../../../UserInteraction.cpp ../../../../UserInteraction.h)
 
 set_target_properties(sfml-window PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
@@ -80,7 +80,7 @@ set_target_properties(sfml-window PROPERTIES
 add_library(OpenGL INTERFACE IMPORTED)
 
 # Create imported target sfml-network
-add_library(sfml-network STATIC IMPORTED)
+add_library(sfml-network STATIC IMPORTED ../../../../UserInteraction.cpp ../../../../UserInteraction.h)
 
 set_target_properties(sfml-network PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
@@ -89,7 +89,7 @@ set_target_properties(sfml-network PROPERTIES
 )
 
 # Create imported target sfml-graphics
-add_library(sfml-graphics STATIC IMPORTED)
+add_library(sfml-graphics STATIC IMPORTED ../../../../UserInteraction.cpp ../../../../UserInteraction.h)
 
 set_target_properties(sfml-graphics PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
@@ -118,7 +118,7 @@ set_target_properties(FLAC PROPERTIES
 )
 
 # Create imported target sfml-audio
-add_library(sfml-audio STATIC IMPORTED)
+add_library(sfml-audio STATIC IMPORTED ../../../../UserInteraction.cpp ../../../../UserInteraction.h)
 
 set_target_properties(sfml-audio PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "SFML_STATIC"
