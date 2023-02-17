@@ -36,6 +36,7 @@ public:
         return neighbors;
     }
 
+
     int getX() const {
         return x;
     }
