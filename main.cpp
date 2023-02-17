@@ -1,12 +1,13 @@
 
+#include <iostream>
 #include "SFML/Graphics.hpp"
 #include "UserInteraction.h"
 
 
 int main() {
-    ::srand(::time(0));
+    ::srand(::time(nullptr));
 
-    Grid myGrid(48,27);
+    Grid myGrid(48, 27);
 
     UserInteraction interaction(&myGrid);
 
